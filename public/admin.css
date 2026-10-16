@@ -402,3 +402,7 @@
 /* Game theme fixes for the admin page: readable editor font, no brick floor */
 :root { --font-mono: Consolas, "SFMono-Regular", Menlo, monospace; }
 body::after { display: none; }
+
+/* Make the hidden attribute win over display rules (e.g. .admin-login is flex),
+   so the sign-in box actually disappears after signing in */
+[hidden] { display: none !important; }
