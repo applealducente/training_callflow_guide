@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FCF Sales Call Flow Guide</title>
-<link rel="stylesheet" href="styles.css?v=10">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body class="locked">
 
@@ -16,6 +17,7 @@
   </div>
   <h1 class="page-title" id="pageTitle">Loading...</h1>
   <div class="topbar-right">
+    <div class="coin-counter" title="Steps confirmed on this call"><span class="coin-counter-icon" aria-hidden="true"></span><span class="coin-x">&times;</span><span id="coinCount">00</span></div>
     <div class="search-wrap">
       <input type="text" id="searchInput" class="search-input" placeholder="Search scripts...">
       <div class="search-results" id="searchResults"></div>
@@ -156,7 +158,7 @@
     <label for="si-email">Email</label>
     <input id="si-email" type="email" placeholder="you@company.com" autocomplete="email">
     <label for="si-team">Team</label>
-    <select id="si-team" class="signin-select" style="width:100%;padding:12px 14px;margin-bottom:4px;border:1.5px solid #ece4d8;border-radius:10px;font-size:15px;background:#fff;color:inherit;">
+    <select id="si-team" class="signin-select">
       <option value="">Loading teams…</option>
     </select>
     <button class="signin-btn" id="si-enter">Enter Guide</button>
@@ -165,6 +167,7 @@
 </div>
 
 <script src="auth.js?v=12"></script>
-<script src="script.js?v=10"></script>
+<script src="pixel-icons.js?v=1"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

@@ -4,14 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FCF Sales — Usage Dashboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap">
 <style>
   :root{
-    --ink:#1c140d; --ember:#ff6a1a; --ember2:#c2410c; --ash:#fbf7f1;
-    --card:#ffffff; --line:#ece4d8; --muted:#7a6e62; --good:#1a8f4c;
+    --ink:#1d1b2c; --ember:#ffcc1a; --ember2:#d0532a; --ash:#f4f7ff;
+    --card:#ffffff; --line:#d7deef; --muted:#6b6785; --good:#1a8f4c;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-    background:#f6f1e8;color:#2a2018}
+  body{margin:0;font-family:Nunito,Segoe UI,system-ui,sans-serif;
+    background:#6ba4ff;color:#1d1b2c}
   a{color:var(--ember2)}
   .wrap{max-width:1040px;margin:0 auto;padding:22px}
   header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
@@ -21,7 +22,7 @@
   .row-actions{display:flex;gap:8px;flex-wrap:wrap}
   button{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--line);
     background:#fff;padding:9px 14px;font-weight:600}
-  button.primary{background:linear-gradient(90deg,var(--ember),#ff9d2f);color:#fff;border:0}
+  button.primary{background:var(--ember);color:var(--ink);border:0;font-weight:800}
   button.danger{color:#b3261e;border-color:#f0c9c5}
   button:hover{filter:brightness(1.03)}
 
@@ -46,7 +47,7 @@
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
   .panel h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:0 0 14px}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:#fff4ea;border:1px solid #ffd9bd;color:#9a3d12;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+  .chip{background:#ddf5e2;border:2px solid #1d1b2c;color:#18752b;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
   .chip .e{color:var(--muted);font-weight:400}
   .empty{color:var(--muted);font-size:14px}
 
@@ -61,9 +62,9 @@
   .bars{display:flex;flex-direction:column;gap:8px}
   .bar-row{display:grid;grid-template-columns:96px 1fr 84px;align-items:center;gap:10px}
   .bar-date{font-size:12px;color:var(--muted)}
-  .bar-track{background:#f1e9dd;border-radius:6px;height:18px;overflow:hidden}
-  .bar-fill{height:100%;background:linear-gradient(90deg,var(--ember),#ff9d2f);border-radius:6px;min-width:2px}
-  .bar-val{font-size:12px;color:#5a4a3c;text-align:right}
+  .bar-track{background:#e4e7ef;border-radius:6px;height:18px;overflow:hidden}
+  .bar-fill{height:100%;background:var(--ember);border-radius:6px;min-width:2px}
+  .bar-val{font-size:12px;color:#3f3b55;text-align:right}
 
   .hide{display:none}
   @media (max-width:720px){ .stats{grid-template-columns:repeat(2,1fr)} }

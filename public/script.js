@@ -71,6 +71,63 @@ async function loadContent() {
   setupSearch();
 }
 
+// Tabler icon per tab (https://tabler.io/icons). A tab in content.json can
+// override this with its own "icon" field.
+const TAB_ICONS = {
+  'opening': 'phone-call',
+  'discovery': 'search',
+  'elevator': 'rocket',
+  'data-gathering': 'home-search',
+  'sales-pitch': 'coin',
+  'booking': 'calendar-event',
+  'booking-proper': 'clipboard-check',
+  'verbatim': 'microphone',
+  'premium': 'star',
+  'system-notes': 'notes',
+  'value-statements': 'diamond',
+  'objections': 'shield',
+  'discovery-questions': 'help-hexagon',
+  'faqs': 'help-circle',
+  'updates': 'bell',
+  'user-manual': 'book',
+};
+
+// Pixel-art icons from pixel-icons.js (used first when available).
+const PIXEL_TAB_ICONS = {
+  'opening': 'speech',
+  'discovery': 'magnifier',
+  'elevator': 'mushroom',
+  'data-gathering': 'house',
+  'sales-pitch': 'coin',
+  'booking': 'clock',
+  'booking-proper': 'key',
+  'verbatim': 'bang',
+  'premium': 'star',
+  'system-notes': 'flag',
+  'value-statements': 'gem',
+  'objections': 'shield',
+  'discovery-questions': 'qblock',
+  'faqs': 'heart',
+  'updates': 'bell',
+  'user-manual': 'castle',
+};
+
+const PIXEL_TOOLBAR_ICONS = {
+  cleaningModal: 'coin',
+  negotiationModal: 'brick',
+  etfModal: 'clock',
+  oneTimeModal: 'mushroom',
+  notesModal: 'scroll',
+};
+
+// Header coin counter: one coin per confirmed step.
+function updateCoinCounter() {
+  const el = document.getElementById('coinCount');
+  if (!el) return;
+  const coins = LOCK_STAGES.filter(stage => isDone(stage.doneKey)).length;
+  el.textContent = String(coins).padStart(2, '0');
+}
+
 function renderTabs() {
   const tabnav = document.getElementById('tabnav');
   const content = document.getElementById('content');
@@ -85,7 +142,23 @@ function renderTabs() {
     const btn = document.createElement('button');
     btn.className = 'tab' + (index === 0 ? ' active' : '');
     btn.dataset.target = tab.id;
-    btn.textContent = tab.label;
+    const pixelName = tab.pixel || PIXEL_TAB_ICONS[tab.id];
+    const iconName = tab.icon || TAB_ICONS[tab.id];
+    if (window.PIXEL && pixelName && PIXEL.has(pixelName)) {
+      const box = document.createElement('span');
+      box.className = 'tab-icon tab-icon-px';
+      box.appendChild(PIXEL.svg(pixelName, 24));
+      btn.appendChild(box);
+    } else if (iconName) {
+      const icon = document.createElement('i');
+      icon.className = 'tab-icon ti ti-' + iconName;
+      icon.setAttribute('aria-hidden', 'true');
+      btn.appendChild(icon);
+    }
+    const label = document.createElement('span');
+    label.className = 'tab-label';
+    label.textContent = tab.label;
+    btn.appendChild(label);
 
     if (locked.has(tab.id)) {
       btn.classList.add('tab-locked');
@@ -171,6 +244,9 @@ function setupLockChainGates() {
     entry.bar.querySelector('button').addEventListener('click', () => {
       markDone(entry.doneKey);
       evaluateLocks();
+      if (entry.gate === 'premium') {
+        flashLockNotice('COURSE CLEAR! Finish your System Notes.');
+      }
       // Collapse the bar shortly after confirming.
       setTimeout(evaluateLocks, 1600);
     });
@@ -178,6 +254,7 @@ function setupLockChainGates() {
 
   evaluateLocks = function () {
     const locked = lockedTabIds();
+    updateCoinCounter();
 
     // Sync tab lock styling.
     CONTENT.tabs.forEach(tab => {
@@ -494,7 +571,12 @@ function renderToolbar() {
 
     const span = document.createElement('span');
     span.className = 'toolbar-icon';
-    span.textContent = item.icon;
+    const pixelName = item.pixel || PIXEL_TOOLBAR_ICONS[item.id];
+    if (window.PIXEL && pixelName && PIXEL.has(pixelName)) {
+      span.appendChild(PIXEL.svg(pixelName, 26));
+    } else {
+      span.textContent = item.icon;
+    }
     btn.appendChild(span);
 
     if (item.id === 'notesModal') {
