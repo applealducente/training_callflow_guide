@@ -398,3 +398,7 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Game theme fixes for the admin page: readable editor font, no brick floor */
+:root { --font-mono: Consolas, "SFMono-Regular", Menlo, monospace; }
+body::after { display: none; }
