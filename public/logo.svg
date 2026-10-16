@@ -7,6 +7,6 @@
   <rect x="33" y="33" width="3" height="3" fill="#a0560f"/>
   <path d="M17 13h10v3h3v6h-3v3h-4v3h-4v-5h3v-3h3v-4h-5v2h-3z M19 30h4v3h-4z" fill="#ffffff"/>
   <path d="M17 13h10v3h3v6h-3v3h-4v3h-4v-5h3v-3h3v-4h-5v2h-3z M19 30h4v3h-4z" fill="none" stroke="#a0560f" stroke-width="1"/>
-  <text x="52" y="22" font-family="'Arial Black', 'Segoe UI Black', Arial, sans-serif" font-size="17" font-weight="900" fill="#ffffff" stroke="#1d1b2c" stroke-width="3" paint-order="stroke" letter-spacing="1">FCF SALES</text>
-  <text x="52" y="38" font-family="'Arial Black', 'Segoe UI Black', Arial, sans-serif" font-size="10" font-weight="900" fill="#ffcc1a" stroke="#1d1b2c" stroke-width="2.4" paint-order="stroke" letter-spacing="1.2">CALL FLOW GUIDE</text>
+  <text x="52" y="22" font-family="'Arial Black', 'Segoe UI Black', Arial, sans-serif" font-size="17" font-weight="900" fill="#ffffff" stroke="#1d1b2c" stroke-width="3" paint-order="stroke" letter-spacing="1">FC SALES</text>
+  <text x="52" y="38" font-family="'Arial Black', 'Segoe UI Black', Arial, sans-serif" font-size="10" font-weight="900" fill="#ffcc1a" stroke="#1d1b2c" stroke-width="2.4" paint-order="stroke" letter-spacing="2.4">TRAINING</text>
 </svg>
