@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210" height="44" viewBox="0 0 210 44">
+  <rect x="2" y="4" width="36" height="36" rx="9" fill="#ff6a1a"/>
+  <text x="20" y="28.5" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="800" fill="#ffffff">FC</text>
+  <text x="48" y="22" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="800" fill="#c2410c" letter-spacing=".5">FCF SALES</text>
+  <text x="48" y="37" font-family="Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="600" fill="#7a6e62" letter-spacing=".4">CALL FLOW GUIDE</text>
+</svg>
