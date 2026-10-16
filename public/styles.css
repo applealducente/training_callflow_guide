@@ -483,10 +483,8 @@ body {
 
 /* Sales pitch tiles: question blocks (FCF), pipes (+tax), bricks (fallbacks) */
 #panel-sales-pitch .value-tile:not(.open) { background: var(--coin); }
-#panel-sales-pitch .value-tile:not(.open):nth-child(n+5) { background: var(--pipe); }
-#panel-sales-pitch .value-tile:not(.open):nth-child(n+5) .accordion-title { color: #fff; text-shadow: 2px 2px 0 var(--pipe-dark); }
-#panel-sales-pitch .value-tile:not(.open):nth-child(n+9) { background: var(--brick); }
-#panel-sales-pitch .value-tile:not(.open):nth-child(n+9) .accordion-title { text-shadow: 2px 2px 0 var(--brick-dark); }
+#panel-sales-pitch .value-tile:not(.open):nth-child(n+5) { background: var(--brick); }
+#panel-sales-pitch .value-tile:not(.open):nth-child(n+5) .accordion-title { text-shadow: 2px 2px 0 var(--brick-dark); }
 /* block rivets */
 #panel-sales-pitch .value-tile:not(.open)::before,
 #panel-sales-pitch .value-tile:not(.open)::after {
@@ -497,10 +495,9 @@ body {
 }
 #panel-sales-pitch .value-tile:not(.open)::before { left: 7px; }
 #panel-sales-pitch .value-tile:not(.open)::after { right: 7px; }
-#panel-sales-pitch .value-tile:nth-child(-n+8) .accordion-title { font-family: var(--font-pixel); font-size: 10px; line-height: 1.7; font-weight: 400; }
+#panel-sales-pitch .value-tile:nth-child(-n+4) .accordion-title { font-family: var(--font-pixel); font-size: 10px; line-height: 1.7; font-weight: 400; }
 #panel-sales-pitch .value-tile.open { border-top: 8px solid var(--coin); }
-#panel-sales-pitch .value-tile.open:nth-child(n+5) { border-top-color: var(--pipe); }
-#panel-sales-pitch .value-tile.open:nth-child(n+9) { border-top-color: var(--brick); }
+#panel-sales-pitch .value-tile.open:nth-child(n+5) { border-top-color: var(--brick); }
 
 @media (max-width: 600px) {
   .value-tiles { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
@@ -819,8 +816,7 @@ body.locked { overflow: hidden; }
   background-position: center; background-size: contain; background-repeat: no-repeat; image-rendering: pixelated;
 }
 #panel-sales-pitch .value-tile .accordion-title::before { background-image: var(--px-coin); }
-#panel-sales-pitch .value-tile:nth-child(n+5) .accordion-title::before { background-image: var(--px-pipe); }
-#panel-sales-pitch .value-tile:nth-child(n+9) .accordion-title::before { background-image: var(--px-brick); }
+#panel-sales-pitch .value-tile:nth-child(n+5) .accordion-title::before { background-image: var(--px-brick); }
 #panel-objections .value-tile .accordion-title::before { background-image: var(--px-shield); }
 #panel-faqs .value-tile .accordion-title::before { background-image: var(--px-heart); }
 #panel-value-statements .value-tile .accordion-title::before { background-image: var(--px-gem); }
@@ -828,8 +824,8 @@ body.locked { overflow: hidden; }
   content: ""; display: inline-block; width: 20px; height: 20px; margin-right: 8px; vertical-align: -4px;
   background: var(--px-bang) center / contain no-repeat; image-rendering: pixelated;
 }
-#panel-sales-pitch .value-tile:nth-child(-n+8) .accordion-title { display: flex; align-items: flex-start; gap: 0; }
-#panel-sales-pitch .value-tile:nth-child(-n+8) .accordion-title::before { flex-shrink: 0; vertical-align: 0; }
+#panel-sales-pitch .value-tile:nth-child(-n+4) .accordion-title { display: flex; align-items: flex-start; gap: 0; }
+#panel-sales-pitch .value-tile:nth-child(-n+4) .accordion-title::before { flex-shrink: 0; vertical-align: 0; }
 
 /* brick ground along the bottom, with a flagpole by the dock */
 body::after {
