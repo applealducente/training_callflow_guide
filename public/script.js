@@ -10,7 +10,7 @@ const LOCK_TTL_MS = 30 * 60 * 1000; // 30 minutes
 const LOCK_STAGES = [
   { gate: 'discovery', doneKey: 'fcf-discovery-done', unlocks: ['sales-pitch'] },
   { gate: 'sales-pitch', doneKey: 'fcf-salespitch-done', unlocks: ['booking'] },
-  { gate: 'premium', doneKey: 'fcf-premium-done', unlocks: ['system-notes'] },
+  { gate: 'verbatim', doneKey: 'fcf-premium-done', unlocks: ['system-notes'] },
 ];
 const VERBATIM_ID = 'verbatim';
 const VERBATIM_REQUIRES = [];
@@ -89,6 +89,7 @@ const TAB_ICONS = {
   'discovery-questions': 'help-hexagon',
   'faqs': 'help-circle',
   'updates': 'bell',
+  'compliance': 'shield-check',
   'user-manual': 'book',
 };
 
@@ -100,7 +101,7 @@ const PIXEL_TAB_ICONS = {
   'data-gathering': 'house',
   'sales-pitch': 'coin',
   'booking': 'clock',
-  'booking-proper': 'key',
+  'booking-proper': 'scroll',
   'verbatim': 'bang',
   'premium': 'star',
   'system-notes': 'flag',
@@ -109,6 +110,7 @@ const PIXEL_TAB_ICONS = {
   'discovery-questions': 'qblock',
   'faqs': 'heart',
   'updates': 'bell',
+  'compliance': 'key',
   'user-manual': 'castle',
 };
 
@@ -185,6 +187,8 @@ function renderTabs() {
     section.id = 'panel-' + tab.id;
     section.innerHTML = `<h1>${tab.title}</h1>${tab.html}`;
     setupAccordions(section);
+    // The required Premium Cleaner section starts open so it's never missed.
+    section.querySelectorAll('.premium-step').forEach(el => el.classList.add('open'));
     content.appendChild(section);
   });
 
@@ -207,7 +211,7 @@ function setupLockChainGates() {
     'discovery': 'discovery questions',
     'sales-pitch': 'the sales pitch',
     'booking': 'booking',
-    'premium': 'the Premium Cleaner offer',
+    'verbatim': 'the verbatim and the Premium Cleaner offer',
   };
 
   // One bar per gated step.
@@ -244,7 +248,7 @@ function setupLockChainGates() {
     entry.bar.querySelector('button').addEventListener('click', () => {
       markDone(entry.doneKey);
       evaluateLocks();
-      if (entry.gate === 'premium') {
+      if (entry.gate === 'verbatim') {
         flashLockNotice('COURSE CLEAR! Finish your System Notes.');
       }
       // Collapse the bar shortly after confirming.

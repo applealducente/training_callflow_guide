@@ -226,7 +226,7 @@ body {
 .tab-label { min-width: 0; }
 
 /* phases 1-10 get a small level number */
-.tab:nth-of-type(-n+10) .tab-label::before {
+.tab:nth-of-type(-n+9) .tab-label::before {
   content: counter(phase) " ";
   font-family: var(--font-pixel);
   font-size: 8px;
@@ -234,10 +234,10 @@ body {
   display: block;
   margin-bottom: 3px;
 }
-.tab:nth-of-type(-n+10) .tab-label::before { content: "LEVEL " counter(phase); }
+.tab:nth-of-type(-n+9) .tab-label::before { content: "LEVEL " counter(phase); }
 
-.tab:nth-of-type(11) { margin-top: 30px; }
-.tab:nth-of-type(11)::before {
+.tab:nth-of-type(10) { margin-top: 30px; }
+.tab:nth-of-type(10)::before {
   content: "Reference";
   position: absolute;
   top: -24px;
@@ -246,7 +246,7 @@ body {
   font-size: 9px;
   color: var(--brick-dark);
 }
-.tab:nth-of-type(n+11) .tab-icon { background: var(--pipe-soft); }
+.tab:nth-of-type(n+10) .tab-icon { background: var(--pipe-soft); }
 
 .tab.active { background: var(--coin); border-color: var(--ink); box-shadow: var(--pop-sm); }
 .tab.active .tab-icon { background: var(--surface); color: var(--brick-dark); }
@@ -684,9 +684,9 @@ body {
     border-right: 0;
     border-bottom: 4px solid var(--ink);
   }
-  .tabnav::before, .tab:nth-of-type(11)::before { display: none; }
+  .tabnav::before, .tab:nth-of-type(10)::before { display: none; }
   .tab { flex-shrink: 0; white-space: nowrap; font-size: 13.5px; }
-  .tab:nth-of-type(11) { margin-top: 0; }
+  .tab:nth-of-type(10) { margin-top: 0; }
   .tab .tab-label::before { display: none !important; }
   .page-wrap { margin-left: 0; padding: 18px 70px 110px 16px; }
   .toolbar { right: 10px; }
@@ -866,3 +866,9 @@ body.locked::after { display: none; }
 @media (max-width: 980px) {
   .search-wrap { display: none; }
 }
+
+/* Premium Cleaner: last, required section of the Verbatim step */
+#panel-verbatim .premium-step { border-color: var(--ink); border-width: 4px; box-shadow: 6px 6px 0 var(--coin-deep); }
+#panel-verbatim .premium-step > .accordion-trigger { background: var(--coin); }
+#panel-verbatim .premium-step .accordion-title::before { background-image: var(--px-star); }
+#panel-verbatim .premium-step .required-box { margin-top: 4px; }
