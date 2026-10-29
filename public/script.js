@@ -933,14 +933,17 @@ function attachCalculatorHandlers() {
     const membershipFee = parseFloat(document.getElementById('neg-mf').value) || 0;
     const term = parseInt(document.getElementById('neg-term').value, 10);
 
-    const total = membershipFee * term;
+    // The $19 first month comes before the paid months (QC small item, Oct 29).
+    const firstMonth = 19;
+    const total = firstMonth + membershipFee * term;
 
     const resultBox = document.getElementById('neg-result');
     resultBox.innerHTML = `
       <p class="result-label">Negotiation Result</p>
       <div class="result-row"><span>Membership fee</span><span>$${membershipFee.toFixed(2)}/mo</span></div>
       <div class="result-row"><span>Commitment term</span><span>${term} months</span></div>
-      <div class="result-row total"><span>Total over term</span><span>$${total.toFixed(2)}</span></div>
+      <div class="result-row"><span>First month</span><span>$${firstMonth.toFixed(2)}</span></div>
+      <div class="result-row total"><span>Total over term (plus applicable taxes)</span><span>$${total.toFixed(2)}</span></div>
     `;
   });
 }
