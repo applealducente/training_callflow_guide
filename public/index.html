@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FC Sales Training</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body class="locked">
 
@@ -134,6 +134,49 @@
   </div>
 </div>
 
+<!-- One-Time Prices: price sheet by hours, zoomable, with the original screenshot -->
+<div class="modal-overlay" id="oneTimePriceModal">
+  <div class="modal modal-wide">
+    <button class="modal-close" data-close>&times;</button>
+    <h2>One-Time Prices</h2>
+    <h3 class="modal-sub" id="otp-note">Plus applicable taxes</h3>
+
+    <div class="price-tabs" id="otp-tabs" role="tablist"></div>
+    <p class="modal-sub-text" id="otp-about"></p>
+
+    <div class="form-row">
+      <label for="otp-hours">Hours the customer wants</label>
+      <select id="otp-hours"></select>
+    </div>
+    <div class="price-answer" id="otp-answer"></div>
+    <p class="booking-link" id="otp-link" hidden></p>
+
+    <div class="zoom-bar">
+      <span>Table size</span>
+      <button type="button" id="otp-zoom-out" aria-label="Smaller">&minus;</button>
+      <button type="button" id="otp-zoom-in" aria-label="Bigger">+</button>
+    </div>
+    <div class="price-table-wrap" id="otp-table"></div>
+
+    <button type="button" class="price-shot" id="otp-shot">
+      <img id="otp-shot-img" alt="Original one-time price sheet">
+      <span>Open the original price sheet (click to zoom)</span>
+    </button>
+  </div>
+</div>
+
+<!-- Full-screen, zoomable view of the original price sheet -->
+<div class="lightbox" id="priceLightbox" hidden>
+  <div class="lightbox-bar">
+    <span>Original price sheet</span>
+    <button type="button" id="lb-out" aria-label="Zoom out">&minus;</button>
+    <button type="button" id="lb-fit">Fit</button>
+    <button type="button" id="lb-in" aria-label="Zoom in">+</button>
+    <button type="button" id="lb-close" aria-label="Close">&times;</button>
+  </div>
+  <div class="lightbox-scroll"><img id="lb-img" alt="Original one-time price sheet"></div>
+</div>
+
 <!-- Notes -->
 <div class="modal-overlay" id="notesModal">
   <div class="modal">
@@ -168,6 +211,6 @@
 
 <script src="auth.js?v=12"></script>
 <script src="pixel-icons.js?v=1"></script>
-<script src="script.js?v=13"></script>
+<script src="script.js?v=14"></script>
 </body>
 </html>

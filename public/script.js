@@ -55,6 +55,119 @@ function lockedTabIds() {
 // Reassigned inside setupLockChainGates once the floating bars exist.
 let evaluateLocks = function () {};
 
+// ---------- One-Time Prices popup ----------
+// Opens from the toolbar or from any "one-time price" button inside a script
+// (those buttons replace the guides' [TBC: one-time price] tags).
+function setupOneTimePrices() {
+  const data = CONTENT.oneTimePrices;
+  const modal = document.getElementById('oneTimePriceModal');
+  if (!data || !modal || !Array.isArray(data.cohorts) || !data.cohorts.length) return;
+
+  const money = n => '$' + Number(n).toFixed(2);
+  const hoursLabel = h => h + (h === 1 ? ' hour' : ' hours');
+  const regular = data.cohorts.find(c => c.id === 'regular');
+  const regularPrice = h => { const r = regular && regular.rows.find(row => row[0] === h); return r ? r[1] : null; };
+  const tabs = document.getElementById('otp-tabs');
+  const hoursSel = document.getElementById('otp-hours');
+  const table = document.getElementById('otp-table');
+  const answer = document.getElementById('otp-answer');
+  let cohort = data.cohorts[0];
+  let size = 1;
+
+  document.getElementById('otp-note').textContent = data.note || 'Plus applicable taxes';
+
+  // Internal booking page for one-time cleanings, when the content provides one
+  const linkLine = document.getElementById('otp-link');
+  if (linkLine && data.bookingLink) {
+    const a = document.createElement('a');
+    a.href = data.bookingLink;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = data.bookingLink;
+    linkLine.innerHTML = '<strong>Internal use only:</strong> book the one-time clean here: ';
+    linkLine.appendChild(a);
+    linkLine.hidden = false;
+  }
+
+  // Hours list: every duration that appears in any cohort, so the pick survives a tab switch.
+  const allHours = [...new Set(data.cohorts.flatMap(c => c.rows.map(r => r[0])))].sort((a, b) => a - b);
+  hoursSel.innerHTML = allHours.map(h => `<option value="${h}">${hoursLabel(h)}</option>`).join('');
+  hoursSel.value = allHours.includes(3) ? '3' : String(allHours[0]);
+
+  tabs.innerHTML = data.cohorts.map(c =>
+    `<button type="button" role="tab" data-cohort="${c.id}">${c.label}</button>`).join('');
+
+  function render() {
+    const h = Number(hoursSel.value);
+    tabs.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.cohort === cohort.id));
+    document.getElementById('otp-about').textContent = cohort.about || '';
+
+    const showRegular = cohort.id !== 'regular';
+    const head = '<tr><th>Duration</th><th>Price</th>' + (showRegular ? '<th>Regular</th><th>Savings</th>' : '') + '</tr>';
+    const body = cohort.rows.map(([hours, price]) => {
+      const reg = regularPrice(hours);
+      return `<tr${hours === h ? ' class="picked"' : ''}><td>${hoursLabel(hours)}</td><td>${money(price)}</td>` +
+        (showRegular ? `<td>${reg != null ? money(reg) : ''}</td><td>${reg != null ? money(reg - price) : ''}</td>` : '') + '</tr>';
+    }).join('');
+    table.innerHTML = `<table class="ref-table price-table" style="font-size:${15 * size}px">${head}${body}</table>`;
+
+    const row = cohort.rows.find(r => r[0] === h);
+    answer.innerHTML = row
+      ? `<span class="price-big">${money(row[1])}</span> for ${hoursLabel(h)}, plus applicable taxes`
+      : `${cohort.label} isn't available for ${hoursLabel(h)}. It starts at ${hoursLabel(cohort.rows[0][0])}.`;
+    // Scroll only the table (not the page) so the chosen hours sit in the middle.
+    const picked = table.querySelector('.picked');
+    table.scrollTop = picked ? Math.max(0, picked.offsetTop - table.clientHeight / 2) : 0;
+  }
+
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button[data-cohort]');
+    if (!b) return;
+    cohort = data.cohorts.find(c => c.id === b.dataset.cohort) || cohort;
+    render();
+  });
+  hoursSel.addEventListener('change', render);
+  document.getElementById('otp-zoom-in').addEventListener('click', () => { size = Math.min(1.8, size + 0.15); render(); });
+  document.getElementById('otp-zoom-out').addEventListener('click', () => { size = Math.max(0.8, size - 0.15); render(); });
+
+  // Script buttons are redrawn when the motion changes, so listen on the page.
+  document.addEventListener('click', e => {
+    const priceBtn = e.target.closest('[data-prices]');
+    if (priceBtn) {
+      // data-prices="trial" (or another cohort id) opens on that table
+      const want = data.cohorts.find(c => c.id === priceBtn.dataset.prices);
+      if (want) cohort = want;
+      modal.classList.add('open');
+      render();
+    }
+  });
+  // The toolbar button opens the popup itself; redraw once it's visible so the table can scroll.
+  const toolBtn = document.querySelector('[data-modal="oneTimePriceModal"]');
+  if (toolBtn) toolBtn.addEventListener('click', () => setTimeout(render, 0));
+
+  // Original screenshot, opened full screen with zoom
+  const shot = document.getElementById('otp-shot');
+  const box = document.getElementById('priceLightbox');
+  const big = document.getElementById('lb-img');
+  if (data.image) {
+    document.getElementById('otp-shot-img').src = data.image;
+    big.src = data.image;
+  } else {
+    shot.hidden = true;
+  }
+  let zoom = 1;
+  const applyZoom = () => { big.style.width = zoom === 1 ? '' : (zoom * 100) + '%'; big.classList.toggle('fit', zoom === 1); };
+  shot.addEventListener('click', () => { zoom = 1; applyZoom(); box.hidden = false; });
+  document.getElementById('lb-in').addEventListener('click', () => { zoom = Math.min(4, zoom + 0.5); applyZoom(); });
+  document.getElementById('lb-out').addEventListener('click', () => { zoom = Math.max(1, zoom - 0.5); applyZoom(); });
+  document.getElementById('lb-fit').addEventListener('click', () => { zoom = 1; applyZoom(); });
+  big.addEventListener('click', () => { zoom = zoom === 1 ? 2 : 1; applyZoom(); });
+  document.getElementById('lb-close').addEventListener('click', () => { box.hidden = true; });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') box.hidden = true; });
+
+  render();
+}
+
 async function loadContent() {
   try {
     const res = await fetch('/api/content');
@@ -68,6 +181,7 @@ async function loadContent() {
   renderToolbar();
   populateCalculatorOptions();
   setupNotesAndModals();
+  setupOneTimePrices();
   setupSearch();
 }
 
@@ -119,6 +233,7 @@ const PIXEL_TOOLBAR_ICONS = {
   negotiationModal: 'brick',
   etfModal: 'clock',
   oneTimeModal: 'mushroom',
+  oneTimePriceModal: 'star',
   notesModal: 'scroll',
 };
 
