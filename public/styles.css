@@ -908,3 +908,19 @@ body.locked::after { display: none; }
 .ref-table th { background: var(--ink); color: var(--coin); text-align: left; padding: 10px 12px; font-weight: 900; }
 .ref-table td { padding: 10px 12px; border-top: 2px solid var(--line-soft); vertical-align: top; }
 .ref-table tr:nth-child(even) td { background: var(--sunk); }
+
+/* What-to-do popup (copied from APEX) */
+.info-body { font-size: 16px; line-height: 1.6; }
+.info-body p { margin: 0 0 10px; }
+.info-body ul { margin: 6px 0 10px; padding-left: 20px; }
+.info-body li + li { margin-top: 6px; }
+
+/* "Customer wants it sooner?" button and popup (same-day / next-day flow) */
+.sooner-line { margin: 0 0 12px; }
+.sooner-btn { font-size: 15px; padding: 6px 14px; }
+.sooner-btn::before { content: "\23F1  "; }
+.info-body .sooner-att { font-weight: 900; margin: 14px 0 6px; }
+.info-body .sooner-att:first-child { margin-top: 0; }
+.info-body .script-block { margin: 0 0 6px; }
+.info-body .sooner-cue { font-style: italic; font-size: 14px; }
+.info-body .sooner-note { font-size: 14px; border-top: 1px dashed currentColor; padding-top: 8px; margin-top: 12px; }

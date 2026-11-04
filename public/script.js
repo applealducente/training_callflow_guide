@@ -55,6 +55,29 @@ function lockedTabIds() {
 // Reassigned inside setupLockChainGates once the floating bars exist.
 let evaluateLocks = function () {};
 
+// ---------- [TBC] buttons ----------
+// Buttons in the scripts open a calculator (data-open-modal) or a short "what to do"
+// note from CONTENT.tbcInfo (data-info). One page-level listener, because the
+// scripts are redrawn whenever the agent switches motion.
+function setupTbcButtons() {
+  const info = CONTENT.tbcInfo || {};
+  const modal = document.getElementById('infoModal');
+  document.addEventListener('click', e => {
+    const opener = e.target.closest('[data-open-modal]');
+    if (opener) {
+      const target = document.getElementById(opener.dataset.openModal);
+      if (target) target.classList.add('open');
+      return;
+    }
+    const btn = e.target.closest('[data-info]');
+    if (!btn || !modal) return;
+    const item = info[btn.dataset.info] || info.general || { title: 'Not final yet', body: '<p>Check with your TL before you say it.</p>' };
+    document.getElementById('info-title').textContent = item.title;
+    document.getElementById('info-body').innerHTML = item.body;
+    modal.classList.add('open');
+  });
+}
+
 // ---------- One-Time Prices popup ----------
 // Opens from the toolbar or from any "one-time price" button inside a script
 // (those buttons replace the guides' [TBC: one-time price] tags).
@@ -182,6 +205,7 @@ async function loadContent() {
   populateCalculatorOptions();
   setupNotesAndModals();
   setupOneTimePrices();
+  setupTbcButtons();
   setupSearch();
 }
 
