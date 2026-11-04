@@ -924,3 +924,5 @@ body.locked::after { display: none; }
 .info-body .script-block { margin: 0 0 6px; }
 .info-body .sooner-cue { font-style: italic; font-size: 14px; }
 .info-body .sooner-note { font-size: 14px; border-top: 1px dashed currentColor; padding-top: 8px; margin-top: 12px; }
+
+.sooner-btn.sooner-inline { font-size: 14px; padding: 1px 8px; margin-left: 6px; }
