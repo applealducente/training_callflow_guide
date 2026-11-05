@@ -926,3 +926,31 @@ body.locked::after { display: none; }
 .info-body .sooner-note { font-size: 14px; border-top: 1px dashed currentColor; padding-top: 8px; margin-top: 12px; }
 
 .sooner-btn.sooner-inline { font-size: 14px; padding: 1px 8px; margin-left: 6px; }
+
+/* ===== Readability fixes (feedback: hard-to-read fonts and colors) ===== */
+/* Pixel font only for big titles; small labels and headings use the regular bold font. */
+.say-label { font-family: var(--font-body); font-size: 12.5px; font-weight: 900; letter-spacing: .1em; color: var(--ink-2); }
+.panel > h3 {
+  display: inline-block; font-family: var(--font-body); font-size: 15px; font-weight: 900; letter-spacing: .06em;
+  color: #fff; background: var(--ink); text-shadow: none; padding: 5px 14px 5px 10px; border-radius: 6px; line-height: 1.4;
+}
+.panel .script-block h3, .panel .accordion-body h3, .manual-card .manual-heading, .panel .objection h3, .panel .faq h3 {
+  font-family: var(--font-body); font-size: 17px; font-weight: 900; color: var(--ink); text-shadow: none; background: none; letter-spacing: 0;
+}
+.panel .accordion-title, #panel-sales-pitch .value-tile:nth-child(-n+4) .accordion-title {
+  font-family: var(--font-body) !important; font-size: 16px !important; font-weight: 900 !important; line-height: 1.35 !important; letter-spacing: 0 !important;
+}
+.motion-btn { font-family: var(--font-body); font-size: 14px; font-weight: 900; letter-spacing: .02em; }
+@media (max-width: 980px) { .motion-btn { font-size: 13px; } }
+.result-label { font-family: var(--font-body); font-size: 13px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2) !important; }
+.modal-sub, .zoom-bar span { color: var(--ink-2); font-size: 13.5px; }
+.tough { font-size: 12.5px; }
+.tab-label::before { font-family: var(--font-body) !important; font-size: 11.5px !important; font-weight: 900; letter-spacing: .12em; }
+/* Badges and buttons: darker backgrounds behind white text */
+.qa-plus { background: #1f6f33; text-shadow: none; }
+.signin-btn { background: var(--ink); color: #fff; }
+
+/* FC: brick header title and counter get a dark outline; orange text on white is darker */
+.page-title, .coin-counter span { text-shadow: 2px 2px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink); }
+.signin-logo { color: var(--brick-dark); }
+.booking-link a, .info-body a { color: var(--brick-dark); }
